@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS players;
+
+CREATE TABLE players (
+    id varchar(26) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    lvl INTEGER NOT NULL DEFAULT 1,
+    class VARCHAR(50) NOT NULL,
+    money DECIMAL(10, 2) NOT NULL DEFAULT 0.00
+);

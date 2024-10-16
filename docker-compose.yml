@@ -1,0 +1,23 @@
+services:
+  cineboot_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=cineboot
+      - POSTGRES_PASSWORD=cineboot_password
+      - POSTGRES_DB=cineboot_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgres/cineboot_db
+
+volumes:
+  postgres_data:

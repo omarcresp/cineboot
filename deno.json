@@ -1,0 +1,14 @@
+{
+  "tasks": {
+    "dev": "deno run --watch --allow-env --allow-net src/main.ts",
+    "migrate": "flyway migrate",
+    "build": "deno compile --output build/cineboot --allow-env --allow-net src/main.ts",
+    "db": "docker-compose up --build postgres"
+  },
+  "imports": {
+    "@dewars/postgres": "jsr:@dewars/postgres@^0.20.0",
+    "@gizmo/http-status": "jsr:@gizmo/http-status@^1.0.0",
+    "@hono/hono": "jsr:@hono/hono@^4.6.4",
+    "@std/ulid": "jsr:@std/ulid@^1.0.0"
+  }
+}
