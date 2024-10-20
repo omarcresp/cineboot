@@ -1,5 +1,7 @@
 import { ulid } from "@std/ulid";
 import { safeQueryObject } from "../utils/safeQueryObject.ts";
+import { HttpStatus } from "@gizmo/http-status";
+import * as ss from "@superstruct/core";
 
 export interface Player {
   id: number;
@@ -14,7 +16,7 @@ export type PlayerDTO = Omit<Player, "id" | "lvl" | "money">;
 const playerRepository = {
   getPlayers: async (): Promise<[Player[], null] | [null, string]> => {
     const [result, error] = await safeQueryObject<Player>(
-      "SELECT * FROM playerss",
+      "SELECT * FROM players",
     );
 
     if (error || !result) {
@@ -44,42 +46,32 @@ const playerRepository = {
   },
 };
 
+class HttpError<T = unknown> extends Error {
+  constructor(message: string, public status: number, override cause?: T) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
+
+function badRequest<T = unknown>(message: string, cause?: T): HttpError<T> {
+  return new HttpError(message, HttpStatus.BadRequest, cause);
+}
+
 export function parsePlayer(
   player: unknown,
-): [PlayerDTO, null] | [null, string] {
-  if (!player) {
-    return [null, "Validation error: player is required"];
+): [HttpError<ss.StructError>, undefined] | [undefined, PlayerDTO] {
+  const playerDTO = ss.object({
+    name: ss.string(),
+    class: ss.string(),
+  });
+
+  const [error, result] = playerDTO.validate(player);
+
+  if (error) {
+    return [badRequest("Validation error " + error.message, error), undefined];
   }
 
-  if (typeof player !== "object") {
-    return [
-      null,
-      "Validation error: player must be an object with name and class properties",
-    ];
-  }
-
-  if (!("name" in player)) {
-    return [null, "Validation error: player must have a name property"];
-  }
-
-  if (typeof player.name !== "string") {
-    return [null, "Validation error: player name must be a string"];
-  }
-
-  if (!("class" in player)) {
-    return [null, "Validation error: player must have a class property"];
-  }
-
-  if (typeof player.class !== "string") {
-    return [null, "Validation error: player class must be a string"];
-  }
-
-  const playerDTO: PlayerDTO = {
-    name: player.name,
-    class: player.class,
-  };
-
-  return [playerDTO, null];
+  return [undefined, result];
 }
 
 export default playerRepository;

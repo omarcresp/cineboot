@@ -1,14 +1,15 @@
 {
   "tasks": {
-    "dev": "deno run --watch --allow-env --allow-net src/main.ts",
+    "dev": "deno run --watch -E=PGAPPNAME,PGDATABASE,PGHOST,PGOPTIONS,PGPASSWORD,PGPORT,PGUSER,PORT -N=0.0.0.0:8000,0.0.0.0:8000,localhost:5432 -R=.env src/main.ts",
     "migrate": "flyway migrate",
-    "build": "deno compile --output build/cineboot --allow-env --allow-net src/main.ts",
+    "build": "deno compile --output build/cineboot -E=PGAPPNAME,PGDATABASE,PGHOST,PGOPTIONS,PGPASSWORD,PGPORT,PGUSER,PORT -R=.env -N src/main.ts",
     "db": "docker-compose up --build postgres"
   },
   "imports": {
     "@dewars/postgres": "jsr:@dewars/postgres@^0.20.0",
     "@gizmo/http-status": "jsr:@gizmo/http-status@^1.0.0",
     "@hono/hono": "jsr:@hono/hono@^4.6.4",
-    "@std/ulid": "jsr:@std/ulid@^1.0.0"
+    "@std/ulid": "jsr:@std/ulid@^1.0.0",
+    "@superstruct/core": "jsr:@superstruct/core@^2.0.2"
   }
 }

@@ -1,1 +1,7 @@
 build
+report.*
+
+node_modules
+bun.lockb
+package-lock.json
+yarn.lock

@@ -1,3 +1,5 @@
+import "jsr:@std/dotenv/load";
+
 import { type Context, Hono } from "@hono/hono";
 import { HttpStatus } from "@gizmo/http-status";
 
@@ -24,17 +26,17 @@ app.get("/players", async (c: Context) => {
 
 app.post("/players", async (c: Context) => {
   const rawPlayer = await c.req.json().catch(() => null);
-  const [player, validationError] = parsePlayer(rawPlayer);
+  const [validationError, player] = parsePlayer(rawPlayer);
 
-  if (validationError || !player) {
+  if (validationError) {
     c.status(HttpStatus.BadRequest);
 
-    return c.text(validationError);
+    return c.text(validationError.message);
   }
 
   const [result, error] = await playerRepository.createPlayer(player);
 
-  if (error || !result) {
+  if (error) {
     c.status(HttpStatus.InternalServerError);
     return c.text(error);
   }
@@ -42,4 +44,18 @@ app.post("/players", async (c: Context) => {
   return c.json(result);
 });
 
-Deno.serve({ port: 8000 }, app.fetch);
+app.get("/health", (c: Context) => {
+  return c.text("OK");
+});
+
+const PORT = Deno.env.get("PORT") ?? 8000;
+
+Deno.serve({ port: +PORT }, async function (req: Request) {
+  const now = performance.now();
+  const response = await app.fetch(req);
+  console.info(
+    `HONO: ${req.method} ${req.url} took ${performance.now() - now}ms`,
+  );
+
+  return response;
+});

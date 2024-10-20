@@ -1,0 +1,13 @@
+{
+  "name": "cineboot-infra",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "up": "hcp vault-secrets run -- pulumi up --yes"
+  },
+  "dependencies": {
+    "@pulumi/aws": "^6.0.0",
+    "@pulumi/awsx": "^1.0.0",
+    "@pulumi/pulumi": "^3.0.0"
+  }
+}
