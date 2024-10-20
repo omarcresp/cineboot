@@ -1,0 +1,43 @@
+{
+  "individualResults": [
+    {
+      "initialSchemaVersion": "4",
+      "targetSchemaVersion": null,
+      "schemaName": "",
+      "migrations": [],
+      "migrationsExecuted": 0,
+      "success": false,
+      "flywayVersion": "9.22.3",
+      "database": "cineboot_db",
+      "warnings": [],
+      "timestamp": "2024-10-19T01:05:26.190746217",
+      "operation": "migrate",
+      "exception": "Migration V5__Create_deno_device_table.sql failed\n-------------------------------------------------\nSQL State  : 42601\nError Code : 0\nMessage    : ERROR: syntax error at or near \")\"\n  Position: 120\nLocation   : migrations/V5__Create_deno_device_table.sql (/home/jackcres/Programming/coding-adventure/cineboot/migrations/V5__Create_deno_device_table.sql)\nLine       : 1\nStatement  : CREATE TABLE deno_device (\n    id UUID PRIMARY KEY,\n    mac VARCHAR(255) NOT NULL,\n    firmware VARCHAR(255) NOT NULL,\n)\n",
+      "licenseFailed": false
+    },
+    {
+      "initialSchemaVersion": "4",
+      "targetSchemaVersion": "5",
+      "schemaName": "",
+      "migrations": [
+        {
+          "category": "Versioned",
+          "version": "5",
+          "description": "Create deno device table",
+          "type": "SQL",
+          "filepath": "/home/jackcres/Programming/coding-adventure/cineboot/migrations/V5__Create_deno_device_table.sql",
+          "executionTime": 38
+        }
+      ],
+      "migrationsExecuted": 1,
+      "success": true,
+      "flywayVersion": "9.22.3",
+      "database": "cineboot_db",
+      "warnings": [],
+      "timestamp": "2024-10-19T01:05:44.137323448",
+      "operation": "migrate",
+      "exception": null,
+      "licenseFailed": false
+    }
+  ]
+}

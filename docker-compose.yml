@@ -4,7 +4,14 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "8000:80"
+    environment:
+      - PGHOST=postgres
+      - PGPORT=5432
+      - PGUSER=cineboot
+      - PGPASSWORD=cineboot_password
+      - PGDATABASE=cineboot_db
+      - PORT=80
     depends_on:
       - postgres
 
