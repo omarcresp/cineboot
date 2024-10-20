@@ -53,8 +53,9 @@ const PORT = Deno.env.get("PORT") ?? 8000;
 Deno.serve({ port: +PORT }, async function (req: Request) {
   const now = performance.now();
   const response = await app.fetch(req);
-  console.info(`HONO: ${req.method} ${req.url} took ${performance.now() - now}ms`);
+  console.info(
+    `HONO: ${req.method} ${req.url} took ${performance.now() - now}ms`,
+  );
 
   return response;
 });
-
