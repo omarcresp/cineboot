@@ -1,7 +1,8 @@
 import { ulid } from "@std/ulid";
-import { safeQueryObject } from "../utils/safeQueryObject.ts";
 import { HttpStatus } from "@gizmo/http-status";
 import * as ss from "@superstruct/core";
+
+import { safeQueryObject } from "../utils/safeQueryObject.ts";
 
 export interface Player {
   id: number;
