@@ -5,22 +5,22 @@ import playerRepository, { parsePlayer } from "./players.ts";
 // Sample valid and invalid data for testing
 const validPlayer = {
   name: "TestPlayer",
-  class: "Warrior"
+  class: "Warrior",
 };
 
 const invalidPlayer = {
   name: 123,
-  class: "Warrior"
+  class: "Warrior",
 };
 
 const invalidPlayerWithoutClass = {
-  name: "TestPlayer"
+  name: "TestPlayer",
 };
 
 const invalidPlayerWithExtraField = {
   name: "TestPlayer",
   class: "Warrior",
-  extraField: "invalid"
+  extraField: "invalid",
 };
 
 // Benchmark function
