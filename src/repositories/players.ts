@@ -53,8 +53,8 @@ class HttpError<T = unknown> extends Error {
   }
 }
 
-function badRequest<T = unknown>(message: string, cause?: T): HttpError<T> {
-  return new HttpError(message, HttpStatus.BadRequest, cause);
+function unprocessableEntity<T = unknown>(message: string, cause?: T): HttpError<T> {
+  return new HttpError(message, HttpStatus.UnprocessableEntity, cause);
 }
 
 export function parsePlayer(
@@ -68,7 +68,7 @@ export function parsePlayer(
   const [error, result] = playerDTO.validate(player);
 
   if (error) {
-    return [badRequest("Validation error " + error.message, error), undefined];
+    return [unprocessableEntity("Validation error " + error.message, error), undefined];
   }
 
   return [undefined, result];
