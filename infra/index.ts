@@ -1,7 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 import * as awsx from "@pulumi/awsx";
-import * as path from "path";
+import * as path from "node:path";
 
 const name = pulumi.getProject();
 const stack = pulumi.getStack();

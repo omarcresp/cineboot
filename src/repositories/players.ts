@@ -60,6 +60,7 @@ function badRequest<T = unknown>(message: string, cause?: T): HttpError<T> {
 export function parsePlayer(
   player: unknown,
 ): [HttpError<ss.StructError>, undefined] | [undefined, PlayerDTO] {
+
   const playerDTO = ss.object({
     name: ss.string(),
     class: ss.string(),
